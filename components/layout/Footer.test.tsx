@@ -1,16 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import Footer from './Footer';
+import { describe, it, expect, vi } from 'vitest';
 
 // Mock next/link
-jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+vi.mock('next/link', () => ({
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => {
     return <a href={href}>{children}</a>;
-  };
-});
+  }
+}));
 
 // Mock the site data function
-jest.mock('@/lib/site', () => ({
-  getSiteData: jest.fn(() => ({
+vi.mock('@/lib/site', () => ({
+  getSiteData: vi.fn(() => ({
     title: 'My Blog',
     description: 'A personal blog about technology and programming',
     socialLinks: [
@@ -25,7 +26,7 @@ jest.mock('@/lib/site', () => ({
 }));
 
 // Mock the SocialLinks component
-jest.mock('@/components/about/SocialLinks', () => ({
+vi.mock('@/components/about/SocialLinks', () => ({
   SocialLinks: () => <div data-testid="social-links" />
 }));
 

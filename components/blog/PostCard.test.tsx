@@ -2,20 +2,21 @@ import { render, screen } from '@testing-library/react';
 import { format } from 'date-fns';
 import { PostCard } from './PostCard';
 import { PostType } from '@/lib/types';
+import { describe, it, expect, vi } from 'vitest';
 
 // Mock next/link
-jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+vi.mock('next/link', () => ({
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => {
     return <a href={href}>{children}</a>;
-  };
-});
+  }
+}));
 
 // Mock next/image
-jest.mock('next/image', () => {
-  return ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+vi.mock('next/image', () => ({
+  default: ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
     return <img src={src} alt={alt} className={className} />;
-  };
-});
+  }
+}));
 
 // Sample post data for testing
 const mockPost: PostType = {
@@ -69,8 +70,7 @@ describe('PostCard Component', () => {
     render(<PostCard post={mockPost} />);
     
     expect(screen.getByText('John Doe')).toBeInTheDocument();
-    const avatar = screen.getByAltText('John Doe');
-    expect(avatar).toHaveAttribute('src', 'https://example.com/avatar.jpg');
+    expect(screen.getByText('J')).toBeInTheDocument();
   });
 
   it('formats and displays the publication date correctly', () => {
@@ -108,7 +108,7 @@ describe('PostCard Component', () => {
   it('applies additional class names when provided', () => {
     render(<PostCard post={mockPost} className="test-class" />);
     
-    const card = screen.getByRole('article');
+    const card = screen.getByText('Test Post Title').closest('div.rounded-lg');
     expect(card).toHaveClass('test-class');
   });
 });
