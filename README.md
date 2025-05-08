@@ -131,6 +131,13 @@ const page = typeof params.page === 'string' ? parseInt(params.page) : 1;
 
 最简单的解决方案是添加`export const dynamic = 'force-dynamic'`在页面文件中。
 
+## 国际化支持
+
+项目支持英文和中文内容：
+
+- 内容存储在单一Markdown文件中，使用HTML注释标记区分不同语言（`<!-- en -->`, `<!-- cn -->`, `<!-- end -->`）
+- 用户可以通过页面顶部的语言切换器在英文和中文之间切换
+
 ## 贡献
 
 欢迎贡献代码或提出建议！请先fork本项目，然后提交pull request。

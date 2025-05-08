@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { cn } from '@/lib/utils';
 
 /**
@@ -25,6 +26,7 @@ const navItems = [
  * - Provides navigation links
  * - Includes search and theme toggle functionality
  * - Transforms into a mobile menu on smaller screens
+ * - Allows switching between English and Chinese versions
  */
 export default function Header() {
   const pathname = usePathname();
@@ -88,6 +90,8 @@ export default function Header() {
             </Button>
             
             <ThemeToggle />
+            
+            <LanguageSwitcher />
             
             {/* Mobile Menu Button */}
             <Button
