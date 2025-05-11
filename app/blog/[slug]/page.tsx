@@ -6,12 +6,12 @@ import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { ShareButtons } from '@/components/blog/ShareButtons';
-import { TableOfContents } from '@/components/blog/TableOfContents';
+// import { ShareButtons } from '@/components/blog/ShareButtons';
+// import { TableOfContents } from '@/components/blog/TableOfContents';
 import { MarkdownContent } from '@/components/blog/MarkdownContent';
-import { RelatedPosts } from '@/components/blog/RelatedPosts';
-import { CommentSection } from '@/components/blog/CommentSection';
-import { getPostBySlug, getRelatedPosts } from '@/lib/posts';
+// import { RelatedPosts } from '@/components/blog/RelatedPosts';
+// import { CommentSection } from '@/components/blog/CommentSection';
+import { getPostBySlug, getRelatedPosts, getPosts } from '@/lib/posts';
 import Link from 'next/link';
 
 /**
@@ -148,25 +148,31 @@ export default async function BlogPostPage({
                 ))}
               </div>
               
-              <ShareButtons post={post} />
+              {/* <ShareButtons post={post} /> */}
             </div>
           </div>
           
           <div className="hidden lg:block">
             <div className="sticky top-8 space-y-8">
-              <TableOfContents content={post.content} />
+              {/* <TableOfContents content={post.content} /> */}
             </div>
           </div>
         </div>
       </article>
       
       <div className="max-w-4xl mx-auto mt-16">
-        <RelatedPosts posts={relatedPosts} />
+        {/* <RelatedPosts posts={relatedPosts} /> */}
       </div>
       
       <div className="max-w-4xl mx-auto mt-16">
-        <CommentSection postSlug={params.slug} />
+        {/* <CommentSection postSlug={params.slug} /> */}
       </div>
     </div>
   );
+}
+
+// 1. 导出 generateStaticParams
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const posts = await getPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
